@@ -7,6 +7,7 @@ import Signup from "./containers/Signup";
 import NewNote from "./containers/NewNote";
 import Settings from "./containers/Settings";
 import NotFound from "./containers/NotFound";
+import BulkEdit from "./containers/BulkEdit";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
 import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
 
@@ -24,6 +25,9 @@ export default function Routes() {
       </UnauthenticatedRoute>
       <AuthenticatedRoute exact path="/settings">
         <Settings />
+      </AuthenticatedRoute>
+      <AuthenticatedRoute exact path="/bulkEdit">
+        <BulkEdit />
       </AuthenticatedRoute>
       <AuthenticatedRoute exact path="/notes/new">
         <NewNote />

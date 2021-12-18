@@ -55,6 +55,9 @@ function App() {
             <Nav activeKey={window.location.pathname}>
               {isAuthenticated ? (
                 <>
+                  <LinkContainer to="/bulkEdit">
+                    <Nav.Link>Bulk Edit</Nav.Link>
+                  </LinkContainer>
                   <LinkContainer to="/settings">
                     <Nav.Link>Settings</Nav.Link>
                   </LinkContainer>
