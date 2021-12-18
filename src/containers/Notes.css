@@ -2,3 +2,8 @@
   height: 300px;
   font-size: 1.5rem;
 }
+
+.Notes .attachment-preview {
+  margin: .75rem 0;
+  height: 200px;
+}

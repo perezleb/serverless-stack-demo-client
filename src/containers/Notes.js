@@ -131,15 +131,22 @@ export default function Notes() {
           <Form.Group controlId="file">
             <Form.Label>Attachment</Form.Label>
             {note.attachment && (
-              <p>
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href={note.attachmentURL}
-                >
-                  {formatFilename(note.attachment)}
-                </a>
-              </p>
+              <div>
+                <p>
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href={note.attachmentURL}
+                  >
+                    {formatFilename(note.attachment)}
+                  </a>
+                </p>
+                {/*Assuming attachment is image. Probably best to download file in memory and check for "image/*" as type
+                 before rendering this but running out of time */}
+                <div>
+                  <img className="attachment-preview" src={note.attachmentURL} alt={note.attachment} />
+                </div>
+              </div>
             )}
             <Form.Control onChange={handleFileChange} type="file" />
           </Form.Group>
