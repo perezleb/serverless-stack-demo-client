@@ -12,6 +12,7 @@ export default function Home() {
   const [notes, setNotes] = useState([]);
   const { isAuthenticated } = useAppContext();
   const [isLoading, setIsLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     async function onLoad() {
@@ -80,14 +81,23 @@ export default function Home() {
   }
 
   function renderNotes() {
+
+    // Simple case-sensitive search. As search gets more complicated (i.e fuzzy search)
+    // might be better to extract logic out. If notes is large and performance is slow, consider
+    // only searching as a from rather than on keypress and then eventually delegating search to backend.
+    const notesToRender = searchTerm.trim() === "" ? notes : notes.filter(note => note.content.includes(searchTerm))
+
     return (
       <div className="notes">
         <h2 className="pb-3 mt-4 mb-3 border-bottom">Your Notes</h2>
-        <ListGroup>{!isLoading && renderNotesList(notes)}</ListGroup>
+        <div className="search">
+          <input placeholder="Search Text" onChange={event => setSearchTerm(event.target.value)} />
+        </div>
+        <ListGroup>{!isLoading && renderNotesList(notesToRender)}</ListGroup>
       </div>
     );
   }
-  
+
   return (
     <div className="Home">
       {isAuthenticated ? renderNotes() : renderLander()}
