@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { API } from "aws-amplify";
 import { Link } from "react-router-dom";
-import { BsPencilSquare } from "react-icons/bs";
+import { BsPencilSquare, BsPaperclip } from "react-icons/bs";
 import ListGroup from "react-bootstrap/ListGroup";
 import { LinkContainer } from "react-router-bootstrap";
 import { useAppContext } from "../libs/contextLib";
@@ -46,21 +46,29 @@ export default function Home() {
             <span className="ml-2 font-weight-bold">Create a new note</span>
           </ListGroup.Item>
         </LinkContainer>
-        {notes.map(({ noteId, content, createdAt }) => (
-          <LinkContainer key={noteId} to={`/notes/${noteId}`}>
-            <ListGroup.Item action>
-              <span className="font-weight-bold">
-                {content.trim().split("\n")[0]}
-              </span>
-              <br />
-              <span className="text-muted">
-                Created: {new Date(createdAt).toLocaleString()}
-              </span>
-            </ListGroup.Item>
-          </LinkContainer>
-        ))}
+        {notes.map(renderNoteItem)}
       </>
     );
+  }
+
+  function renderNoteItem(note) {
+    const attachment = note.attachment ? <BsPaperclip/> : null;
+    return (
+      <LinkContainer key={note.noteId} to={`/notes/${note.noteId}`}>
+        <ListGroup.Item action>
+            <span className="font-weight-bold">
+              {note.content}
+            </span>
+          <br />
+          <span className="text-muted">
+              Created: {new Date(note.createdAt).toLocaleString()}
+            </span>
+          <span className="attachment">
+                {attachment}
+            </span>
+        </ListGroup.Item>
+      </LinkContainer>
+    )
   }
 
   function renderLander() {
